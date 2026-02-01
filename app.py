@@ -6,6 +6,7 @@ import base64
 import plotly.express as px
 import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
+from pathlib import Path
 
 
 # Set page title
@@ -17,7 +18,16 @@ menu = st.sidebar.radio(
     "Go to:",
     ["Researcher Profile", "Publications", "Spatial Data Explorer", "Contact"],
 )
-st.logo("Picture3.png")
+
+#Assets - resolve path relative to the current file
+BASE_DIR = Path(__file__).parent
+    
+LOGO_PATH = BASE_DIR / "assets" / "Picture3.png"
+PDF_PATH = BASE_DIR / "assets" / "UPD_Spatial_Trends_Report_2024_25_comp.pdf"
+COVER_PATH = BASE_DIR / "assets" / "Spatial-Trends-Cover-Poster-2025.jpg"
+
+
+st.logo(str(LOGO_PATH))
 
 # Spatial Data Input
 
@@ -93,7 +103,7 @@ elif menu == "Publications":
     # Create two equal-width columns
     col1, col2 = st.columns(2)
     with col1:
-        st.image("Spatial-Trends-Cover-Poster-2025.jpg", width = 400)
+        st.image(str(LOGO_PATH), width = 400)
     
     with col2:
         st.subheader("Access Reports Online")
@@ -114,7 +124,6 @@ elif menu == "Publications":
         type="primary") 
        
     # Report Sample - PDF Viewer
-    from pathlib import Path
 
     BASE_DIR = Path(__file__).parent
     PDF_PATH = BASE_DIR / "UPD_Spatial_Trends_Report_2024_25_comp.pdf"
@@ -405,3 +414,4 @@ elif menu == "Contact":
     st.header("Contact Information")
     email = "upd.data@capetown.gov.za"
     st.write(f"For further information or if you would like to be in touch with us email: {email}.")
+
