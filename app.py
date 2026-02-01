@@ -124,10 +124,7 @@ elif menu == "Publications":
         type="primary") 
        
     # Report Sample - PDF Viewer
-
-    BASE_DIR = Path(__file__).parent
-    PDF_PATH = BASE_DIR / "UPD_Spatial_Trends_Report_2024_25_comp.pdf"
-    
+   
     def show_pdf(path: Path):
         if not path.exists():
             st.error(f"PDF not found: {path}")
@@ -149,56 +146,8 @@ elif menu == "Publications":
     
     st.subheader("Local PDF Viewer")
     st.write("Sample pages from our latest report:")
-    show_pdf(PDF_PATH)
-
-
-# elif menu == "Spatial Data Explorer":
-#     st.title("Spatial Data Explorer")
-#     st.sidebar.header("Data Selection")
-    
-#     # Tabbed view for STEM data
-    
-    
-#     # --- Sidebar: Controls ---
-#     st.sidebar.header("Controls")
-
-
-#     opacity = st.sidebar.slider("Cell opacity", 0.1, 1.0, 0.8, 0.05)
-    
-#     data_option = st.sidebar.selectbox(
-#         "Choose a dataset to explore", 
-#         ["Property Values", "Astronomy Observations", "Weather Data"]
-#     )
-
-#     if data_option == "Property Values":
-#         st.write("### Property Values")
-        
-#         sel_year = st.sidebar.selectbox("Select year", list(YEAR_COLUMNS.keys()), index=3)
-#         value_col = YEAR_COLUMNS[sel_year]
-                    
-#         st.dataframe(gv_value_data.head(20))
-        
-#         st.pydeck_chart(
-#             pdk.Deck(
-#                 map_style=None,
-#             layers=[
-#                 pdk.Layer(
-#                     "GridCellLayer",
-#                     data = gv_value_data,
-#                     get_position=["lon", "lat"],
-#                     cell_size=200,
-#                     elevation_scale=1,
-#                     get_elevation=0,
-#                     pickable=True,
-#                     extruded=False,
-#                     opacity=opacity,
-
-#                     )
-#                 ]
-#             )
-#         )
-        
-        
+    show_pdf(str(PDF_PATH))
+       
 elif menu == "Spatial Data Explorer":
     st.title("Spatial Data Explorer")
     st.header("Gross Res Density")
@@ -414,5 +363,6 @@ elif menu == "Contact":
     st.header("Contact Information")
     email = "upd.data@capetown.gov.za"
     st.write(f"For further information or if you would like to be in touch with us email: {email}.")
+
 
 
