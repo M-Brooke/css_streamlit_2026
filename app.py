@@ -103,7 +103,7 @@ elif menu == "Publications":
     # Create two equal-width columns
     col1, col2 = st.columns(2)
     with col1:
-        st.image(str(LOGO_PATH), width = 400)
+        st.image(str(COVER_PATH), width = 400)
     
     with col2:
         st.subheader("Access Reports Online")
@@ -146,7 +146,7 @@ elif menu == "Publications":
     
     st.subheader("Local PDF Viewer")
     st.write("Sample pages from our latest report:")
-    show_pdf(str(PDF_PATH))
+    show_pdf(PDF_PATH)
        
 elif menu == "Spatial Data Explorer":
     st.title("Spatial Data Explorer")
@@ -363,6 +363,7 @@ elif menu == "Contact":
     st.header("Contact Information")
     email = "upd.data@capetown.gov.za"
     st.write(f"For further information or if you would like to be in touch with us email: {email}.")
+
 
 
 
