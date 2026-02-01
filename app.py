@@ -97,7 +97,7 @@ elif menu == "Publications":
     
     # Intro
     st.header("Spatial Trends Report")
-    st.write("The City’s Urban Planning and Design Department releases a Spatial Trends Report annually. The report provides the latest information about land use development trends/patterns and cha[...]")
+    st.write("The City’s Urban Planning and Design Department releases a Spatial Trends Report annually. The report provides the latest information about land use development trends/patterns and change in Cape Town over time.")
     
     # Links to Reports  
     # Create two equal-width columns
@@ -168,7 +168,8 @@ elif menu == "Spatial Data Explorer":
     opacity = st.sidebar.slider("Cell opacity", 0.1, 1.0, 0.6, 0.05)
     
     value_col = YEAR_COLUMNS[sel_year]
-    st.write("This indicator shows change in gross residential density over time (2012-2022) as captured in the City’s General Valuation Rolls (formal dwellings only). Data is aggregated by using a [...]")
+    st.write("This indicator shows change in gross residential density over time (2012-2022) as captured in the City’s General Valuation Rolls (formal dwellings only).")
+    st.write("Data is aggregated by using a square grid comprised of 4ha (200m x 200m) grid cells.")
     st.write("Please select a year from the navigation bar to update the data shown in the map and chart below.")
      # Create two equal-width columns
     col1, col2 = st.columns(2)
@@ -306,29 +307,25 @@ elif menu == "Spatial Data Explorer":
         t = t.clip(lower=0, upper=1)
 
         # Blue (low) → Red (high), fixed green channel for contrast
-        # Convert to integer color channels
-        r = (255 * t).round().fillna(0).astype(int).to_numpy()
-        g = np.full(len(dens), 50, dtype=int)
-        b = (255 * (1 - t)).round().fillna(0).astype(int).to_numpy()
-
-        # Alpha scaled by the opacity slider (0..1) -> 0..255
-        alpha_val = int(255 * float(opacity))
-        a = np.full(len(dens), alpha_val, dtype=int)
+        # Handle NaNs separately as grey
+        r = (255 * t).round().astype("Int64")
+        g = pd.Series(50, index=dens.index, dtype="Int64")
+        b = (255 * (1 - t)).round().astype("Int64")
 
         # Grey for NaNs
-        is_nan = dens.isna().to_numpy()
+        is_nan = dens.isna()
         r[is_nan] = 180
         g[is_nan] = 180
         b[is_nan] = 180
-        a[is_nan] = 180
 
-        # Pack color as list of [r,g,b,a] ints for pydeck
-        color_rgba = [[int(rr), int(gg), int(bb), int(aa)] for rr, gg, bb, aa in zip(r, g, b, a)]
+        # Pack color as [r,g,b, alpha]
+        color_rgba = pd.concat([r, g, b, pd.Series(index=dens.index).round().astype("Int64")], axis=1)
+        color_rgba.columns = ["r", "g", "b", "a"]
 
         # Build a working DataFrame for the layer
         df_map = gv_dens_data.copy()
         df_map["_elev"] = dens.fillna(0)  # elevation uses 0 for NaN
-        df_map["_color"] = color_rgba
+        df_map["_color"] = color_rgba.values.tolist()
         
         # Simple pydeck map
         st.pydeck_chart(
@@ -367,5 +364,3 @@ elif menu == "Contact":
     st.header("Contact Information")
     email = "upd.data@capetown.gov.za"
     st.write(f"For further information or if you would like to be in touch with us email: {email}.")
-
-
