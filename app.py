@@ -97,7 +97,7 @@ elif menu == "Publications":
     
     # Intro
     st.header("Spatial Trends Report")
-    st.write("The City’s Urban Planning and Design Department releases a Spatial Trends Report annually. The report provides the latest information about land use development trends/patterns and cha[...]
+    st.write("The City’s Urban Planning and Design Department releases a Spatial Trends Report annually. The report provides the latest information about land use development trends/patterns and cha[...]")
     
     # Links to Reports  
     # Create two equal-width columns
@@ -367,3 +367,4 @@ elif menu == "Contact":
     st.header("Contact Information")
     email = "upd.data@capetown.gov.za"
     st.write(f"For further information or if you would like to be in touch with us email: {email}.")
+
