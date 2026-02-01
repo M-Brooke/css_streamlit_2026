@@ -25,13 +25,13 @@ BASE_DIR = Path(__file__).parent
 LOGO_PATH = BASE_DIR / "assets" / "Picture3.png"
 PDF_PATH = BASE_DIR / "assets" / "UPD_Spatial_Trends_Report_2024_25_comp.pdf"
 COVER_PATH = BASE_DIR / "assets" / "Spatial-Trends-Cover-Poster-2025.jpg"
-
+DATA_PATH = BASE_DIR / "assets" / "sl_du2_grid_w_dens_Gross_RES_Density.csv"
 
 st.logo(str(LOGO_PATH))
 
 # Spatial Data Input
 
-gv_dens_data = pd.read_csv("sl_du2_grid_w_dens_Gross_RES_Density.csv")
+gv_dens_data = pd.read_csv(DATA_PATH)
 
 # Legend
 def render_legend(vmin, vmax, sel_year, width=5, height=0.5):
@@ -414,4 +414,5 @@ elif menu == "Contact":
     st.header("Contact Information")
     email = "upd.data@capetown.gov.za"
     st.write(f"For further information or if you would like to be in touch with us email: {email}.")
+
 
