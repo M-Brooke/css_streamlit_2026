@@ -168,7 +168,7 @@ elif menu == "Spatial Data Explorer":
     opacity = st.sidebar.slider("Cell opacity", 0.1, 1.0, 0.6, 0.05)
     
     value_col = YEAR_COLUMNS[sel_year]
-    st.write("This indicator shows change in gross residential density over time (2012-2022) as captured in the City’s General Valuation Rolls (formal dwellings only). Data is aggregated by using a [...]
+    st.write("This indicator shows change in gross residential density over time (2012-2022) as captured in the City’s General Valuation Rolls (formal dwellings only). Data is aggregated by using a [...]")
     st.write("Please select a year from the navigation bar to update the data shown in the map and chart below.")
      # Create two equal-width columns
     col1, col2 = st.columns(2)
@@ -367,4 +367,5 @@ elif menu == "Contact":
     st.header("Contact Information")
     email = "upd.data@capetown.gov.za"
     st.write(f"For further information or if you would like to be in touch with us email: {email}.")
+
 
