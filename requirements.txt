@@ -1,4 +1,5 @@
 # requirements.txt
 streamlit
 plotly>=5.18,<6
+matplotlib
 # ...the rest
